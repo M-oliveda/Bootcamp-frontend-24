@@ -1,62 +1,25 @@
-function getRandomNumber(minValue, maxValue) {
-  return Math.floor(Math.random() * maxValue) + minValue;
-}
+// First exercise:
+const arr1 = [7, 9, 1, "a", "a", "f", 9, 4, 2, "d", "d"];
 
-const firstArray = [];
-
-for (let i = 1; i <= 10; i++) {
-  firstArray.push(getRandomNumber(1, 250));
-}
-
-const smallestNumber = firstArray.sort((numberA, numberB) => {
-  if (numberA < numberB) {
-    return -1;
-  } else if (numberA > numberB) {
-    return 1;
+const arr1WithoutDuplicates = arr1.reduce((newArray, oldItem) => {
+  if (!newArray.find((item) => item == oldItem)) {
+    return newArray.concat([oldItem]);
   }
-
-  return 0;
-})[0];
-
-console.log(`The smallest number inside ${firstArray} is: ${smallestNumber}`);
-
-const secondArray = [
-  getRandomNumber(1, 100),
-  "a",
-  "b",
-  "d",
-  "a",
-  "d",
-  "d",
-  getRandomNumber(1, 100),
-  getRandomNumber(1, 100),
-  getRandomNumber(1, 100),
-];
-
-const secondArrayStats = secondArray.reduce((acumulator, currentValue) => {
-  if (acumulator.find((item) => item.key == currentValue)) {
-    const itemIdx = acumulator.findIndex((item) => item.key == currentValue);
-    acumulator[itemIdx].times += 1;
-    return acumulator;
-  } else {
-    return acumulator.concat({ key: currentValue, times: 1 });
-  }
+  return newArray;
 }, []);
 
-const sortedSecondArrayStats = secondArrayStats.sort((firstKey, secondKey) => {
-  if (firstKey.times < secondKey.times) {
-    return -1;
-  } else if (firstKey.times > secondKey.times) {
-    return 1;
-  }
-  return 0;
-});
+console.log(arr1, arr1WithoutDuplicates);
 
-const itemWhoAppearMost =
-  sortedSecondArrayStats[sortedSecondArrayStats.length - 1];
+// Second exercise:
+const data = [
+  ["The", "Little", "horse"],
+  ["Plane", "over", "the", "ocean"],
+  ["Chocolate", "ice", "cream", "is", "awesome"],
+  ["this", "is", "a", "long", "sentence"],
+];
 
-console.log(
-  `The key who appears the most inside:`,
-  sortedSecondArrayStats,
-  ` is ${itemWhoAppearMost.key} and appears: ${itemWhoAppearMost.times} times.`
-);
+const concatanedData = data.reduce((newArray, oldItem) => {
+  return newArray.concat(oldItem.join(" "));
+}, []);
+
+console.log(data, concatanedData);
