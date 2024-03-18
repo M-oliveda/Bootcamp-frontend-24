@@ -1,25 +1,22 @@
-// First exercise:
-const arr1 = [7, 9, 1, "a", "a", "f", 9, 4, 2, "d", "d"];
+// Exercise
+const arr = [1, 2, 4, 4, 7, 4, 2, 1];
 
-const arr1WithoutDuplicates = arr1.reduce((newArray, oldItem) => {
-  if (!newArray.find((item) => item == oldItem)) {
-    return newArray.concat([oldItem]);
+const arrStats = arr.reduce((accumulator, currentValue) => {
+  if (accumulator.find((item) => item.number == currentValue)) {
+    accumulator[
+      accumulator.findIndex((item) => item.number == currentValue)
+    ].n += 1;
+    return accumulator;
+  } else {
+    return accumulator.concat({ number: currentValue, n: 1 });
   }
-  return newArray;
 }, []);
+const arrKeyWithOneAppear = arrStats.filter((item) => item.n == 1);
+const arrResultedNumbers = arrKeyWithOneAppear.reduce(
+  (accumulator, currentValue) => accumulator.concat(currentValue.number),
+  []
+);
 
-console.log(arr1, arr1WithoutDuplicates);
-
-// Second exercise:
-const data = [
-  ["The", "Little", "horse"],
-  ["Plane", "over", "the", "ocean"],
-  ["Chocolate", "ice", "cream", "is", "awesome"],
-  ["this", "is", "a", "long", "sentence"],
-];
-
-const concatanedData = data.reduce((newArray, oldItem) => {
-  return newArray.concat(oldItem.join(" "));
-}, []);
-
-console.log(data, concatanedData);
+console.log(
+  `The array: ${arr} has these numbers: ${arrResultedNumbers} that appears only once.`
+);
