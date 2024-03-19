@@ -1,22 +1,42 @@
-// Exercise
-const arr = [1, 2, 4, 4, 7, 4, 2, 1];
-
-const arrStats = arr.reduce((accumulator, currentValue) => {
-  if (accumulator.find((item) => item.number == currentValue)) {
-    accumulator[
-      accumulator.findIndex((item) => item.number == currentValue)
-    ].n += 1;
-    return accumulator;
-  } else {
-    return accumulator.concat({ number: currentValue, n: 1 });
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = "HttpError";
+    this.response = response;
   }
-}, []);
-const arrKeyWithOneAppear = arrStats.filter((item) => item.n == 1);
-const arrResultedNumbers = arrKeyWithOneAppear.reduce(
-  (accumulator, currentValue) => accumulator.concat(currentValue.number),
-  []
-);
+}
 
-console.log(
-  `The array: ${arr} has these numbers: ${arrResultedNumbers} that appears only once.`
-);
+async function loadJson(url) {
+  try {
+    const fetchResult = await fetch(url);
+    if (fetchResult.status == 200) {
+      return fetchResult.json();
+    } else {
+      throw new HttpError(fetchResult);
+    }
+  } catch (err) {
+    console.log(
+      "There was an eror on trying loading the json file.",
+      err.name,
+      err.message
+    );
+  }
+}
+
+async function demoGithubUser() {
+  let name = prompt("Enter a name?", "vanimar");
+  try {
+    const user = await loadJson(`https://api.github.com/users/${name}`);
+    alert(`Full name: ${user.name}.`);
+    return user;
+  } catch (err) {
+    if (err instanceof HttpError && err.response.status == 404) {
+      alert("No such user, please reenter.");
+      return demoGithubUser();
+    } else {
+      throw err;
+    }
+  }
+}
+
+demoGithubUser();
