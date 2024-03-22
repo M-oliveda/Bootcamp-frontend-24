@@ -6,6 +6,64 @@
     <title>Web Components</title>
   </head>
   <body>
+    <template id="cardTemplate">
+      <style>
+        img {
+          max-width: 100%;
+        }
+        .card {
+          max-width: 500px;
+          margin: 2em auto;
+          border: 1px solid #555;
+        }
+
+        .card__image {
+          display: block;
+        }
+
+        .card__content {
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+
+          background-color: #555;
+        }
+
+        .content__title,
+        .content__subtitle {
+          color: #fff;
+        }
+
+        .content__title {
+          font-size: 1.5em;
+        }
+      </style>
+      <article class="card">
+        <img
+          src="./images/jalasoft-logo.jpg"
+          alt="Jalasoft Logo."
+          class="card__image"
+        />
+        <div class="card__content">
+          <img
+            src="./images/avatar-image.png"
+            alt="Avatar image."
+            class="content__image"
+          />
+
+          <h2 class="content__title">
+            <slot name="name">Your title goes here.</slot>
+          </h2>
+          <p class="content__subtitle">
+            <slot name="profession">Your message goes here.</slot>
+          </p>
+        </div>
+      </article>
+    </template>
+    <card-box id="card-box">
+      <span slot="name">Mark Robinson</span>
+      <span slot="profession">Jalasoft full-stack developer</span>
+    </card-box>
     <script src="./js/index.js" type="module"></script>
   </body>
 </html>

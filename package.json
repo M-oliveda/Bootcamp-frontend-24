@@ -1,0 +1,16 @@
+{
+  "name": "bootcamp-frontend-24",
+  "version": "1.0.0",
+  "description": "This folder contains the first challenge for the frontend jalasoft course.",
+  "repository": "git@github.com:M-oliveda/Bootcamp-frontend-24.git",
+  "author": "Mauricio Oliveda <maurioliveda@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test:cli": "echo 'Hello World!'",
+    "parcel:dev": "parcel './src/index.html' --dist-dir './dist' --no-source-maps"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
